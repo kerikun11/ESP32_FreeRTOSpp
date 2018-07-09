@@ -1,5 +1,13 @@
+/**
+ * @brief C++ Wrapper for FreeRTOS in ESP32
+ *
+ * @file FreeRTOSpp.h
+ * @author Ryotaro Onuki
+ * @date 2018-07-09
+ */
 #pragma once
 
+#include "esp_log.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/queue.h"
 #include "freertos/semphr.h"
@@ -9,7 +17,7 @@ namespace FreeRTOSpp {
 
 /**
  * @brief C++ のメンバ関数を実行することができるタスクのクラス
- * 
+ *
  * @tparam T 実行するメンバ関数のクラス
  */
 template <typename T> class Task {
@@ -67,19 +75,19 @@ private:
   T *obj = NULL;                     //< thisポインタ
   void (T::*func)() = NULL;          //< メンバ関数ポインタ
 
-  /** @function task
-      @brief FreeRTOSにより実行される関数ポインタ
-  */
+  /**
+   * @brief FreeRTOSにより実行される関数ポインタ
+   */
   static void entry_point(void *arg) {
     auto task_obj = static_cast<Task *>(arg);
     (task_obj->obj->*task_obj->func)();
   }
 };
 
-/** @class TaskBase
-    @brief FreeRTOSのタスクのベースとなるクラス．
-    実行したい関数をもつクラスは，このクラスを継承する．
-*/
+/**
+ * @brief FreeRTOSのタスクのベースとなるクラス．
+ * 実行したい関数をもつクラスは，このクラスを継承する．
+ */
 class TaskBase {
 public:
   /**
