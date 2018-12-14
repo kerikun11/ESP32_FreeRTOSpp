@@ -1,0 +1,10 @@
+{
+    "name": "FreeRTOSpp",
+    "description": "C++ Wrapper for ESP32 FreeRTOS Library",
+    "keywords": "FreeRTOS,esp32",
+    "build": {
+        "flags": [
+            "-I include"
+        ]
+    }
+}
